@@ -1,0 +1,14 @@
+“Three players enter a room and a red or blue hat is placed on each person’s head.
+The color of each hat is determined by [an independent] coin toss. No communication
+of any sort is allowed, except for an initial strategy session before the game begins.
+Once they have had a chance to look at the other hats [but not their own], the
+players must simultaneously guess the color of their own hats or pass. The puzzle
+is to find a group strategy that maximizes the probability that at least one person
+guesses correctly and no-one guesses incorrectly.”
+The naive strategy would be for the group to agree that one person should guess and the
+others pass. This would have probability 1/2 of success. Find a strategy with a greater chance
+for success. (The solution is given in the article.)
+For a different problem, allow every one of n people to place an even bet on the color of his
+hat. The bet can either be on red or on blue and the amount of each bet is arbitrary. The group
+wins if their combined wins are strictly greater than their losses. Find, with proof, a strategy
+with maximal winning probability.

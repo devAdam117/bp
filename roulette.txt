@@ -1,0 +1,11 @@
+ We are playing Russian roulette, with a standard 6-chamber revolver. I put two bullets in adjacent chambers, spin, point the gun at my head, and pull the trigger. 
+ Click. 
+ I'm still alive. 
+ It's now your turn, and I hand the gun to you, and give you two choices.
+
+Would you rather, assuming you want to live,
+
+a) Re-spin, aim at your own head and pull the trigger.
+b)  Do not spin, aim at your own head, and pull the trigger.
+
+Why?

@@ -1,0 +1,12 @@
+ [R. Stanley] You have n > 1 numbers 0, 1, . . . , n − 1 arranged on a circle. A random walker
+starts at 0 and at each step moves at random to one of its two nearest neighbors. For each i,
+compute the probability pi that, when the walker is at i for the first time, all other points have
+been previously visited, i.e., that i is the last new point. For example, p0 = 0.
+
+
+
+Do kasina prisla nova, hra, kde si hrac najprv vsadi vsadzku lubovolnej vysky, nasledne zvoli pozadovany pocet cisel, ktory ma opisat kruznicu a ako posledne zvoli cislo, 
+na ktore si chce vsadit a hra moze zacat. Hrac si vsadi na i-te cislo kde i: 1<i<n-1. Zacina sa na cisle 0 a s rovnakou pp. sa o jedno kolo hra presunie k jednemu z najblizsich
+susedov, teda pri 0 s 50% ku 1 a s 50% k n-1. To ze hrac vsadil na cislo i znamena, ze si vsadil ze ked v nejakom kole budeme na cisle i, tak pred tym hra uz bola na cislach
+1,2,3,...,i => Teda prisla k cislu sprava a nie z lava. Pre kazde taketo cislo nadstavime kurz vyhry ktory ukazeme hracovy po tom ako i zvoli cislo na ktore chce vsadit (lebo
+P(X=i) je vzdy ine) a nasledne ho moze akceptovat a zcataj . Kurz nadstavime tak aby nase kasino bolo z tejto hry z dlhodobeho hladiska v pluse. teda aby E(vyhry hraca)<1 X vklad
