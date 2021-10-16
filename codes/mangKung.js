@@ -6,10 +6,9 @@ const chalk = require("chalk");
 let players = [];
 
 class Player  {
-    constructor(id,name,gameMoney,wallet){
+    constructor(id,name,wallet){
         this.id=id;
-        this.name=name;
-        this.gameMoney=gameMoney;
+        this.name=name;        
         this.wallet=wallet;
     }
 }
@@ -65,7 +64,7 @@ const handleRound = (player,moneyOnTable,gameType) => {
     if(cubesSum < moneyOnTable){
         stats.lostMoneyInOneRound.push(0);
         moneyOnTable -= cubesSum // vzdy > 0        
-        players[index].gameMoney += cubesSum;     
+        players[index].wallet += cubesSum;     
         return {
             nextPlayer:selectNextPlayer(players[index]),
             currentTableValue:moneyOnTable,
@@ -76,47 +75,43 @@ const handleRound = (player,moneyOnTable,gameType) => {
         
         let diff = cubesSum-moneyOnTable;
 
-        if(players[index].gameMoney-diff <0){
+        
 
             moneyOnTable+= diff;
-            stats.lostMoneyInOneRound.push(diff);
-            let missingNumber =-(players[index].gameMoney-diff);
-            players[index].gameMoney=0;
-            players[index].wallet-missingNumber>0?  players[index].wallet-=missingNumber: players[index].wallet=0;
-            return {
-                nextPlayer:selectNextPlayer(players[index]),
-                currentTableValue:moneyOnTable,
-                endGame:false
-            };
-
-        }
-        else {
-            stats.lostMoneyInOneRound.push(0);
-            let diff = cubesSum-moneyOnTable;
-            moneyOnTable += diff;
-            players[index].gameMoney-=diff;
-            return {
-                nextPlayer:selectNextPlayer(players[index]),
-                currentTableValue:moneyOnTable,
-                endGame:false
-            };
-        }
+            if(players[index].wallet-diff>=0){  
+                players[index].wallet-=diff
+                stats.lostMoneyInOneRound.push(diff);   
+                return {
+                    nextPlayer:selectNextPlayer(players[index]),
+                    currentTableValue:moneyOnTable, 
+                    endGame:false
+                };
+            } 
+            else {
+                players[index].wallet=0;
+                return {
+                    nextPlayer:selectNextPlayer(players[index]),
+                    currentTableValue:moneyOnTable,
+                    endGame:true
+                };
+            }
+        
     }
     else {
         stats.lostMoneyInOneRound.push(0);
-        let inGameMoney = 0;
+        let moneyFromPlayer = 0;
         let arrToCheck= [];
         players.forEach((player,index) => {
-            inGameMoney += player.gameMoney;
-            stats.lostMoneyInOneGame.push(player.gameMoney);
-            arrToCheck.push(player.gameMoney);
-            player.gameMoney=0;
+            moneyFromPlayer += cubesSum;
+            player.wallet-=cubesSum;
+            stats.lostMoneyInOneGame.push(player.wallet);
+            arrToCheck.push(player.wallet);            
         })
         stats.maxLostMoneyInOneGame.push(functions.maxFromArr(arrToCheck));
         
         
         stats.winningPlayers.push(players[index].name);
-        let totalRoundMoney = (inGameMoney+moneyOnTable);
+        let totalRoundMoney = (moneyFromPlayer+moneyOnTable);
         players[index].wallet+= totalRoundMoney;
         moneyOnTable=0;
         if(gameType==="random"){
@@ -147,18 +142,37 @@ const handleRound = (player,moneyOnTable,gameType) => {
 const startGame = (players,rounds,gameType)=> {
         
     stats.newGames+=1;
-    let startingBudget = 0;    
-    players.forEach(player => {
-        if(player.wallet-7>0){
-        player.wallet-=7;
-        //startingWallets.push(player.wallet);
-        player.gameMoney=0;
-        startingBudget +=7; 
+    let startingBudget = 0; 
+    let numOfPlayers=players.length   
+    let initWithdrawal =0;
+    let k=1;
+    while(!Number.isInteger((k*21)/numOfPlayers)){
+        k++;
+    }
+    initWithdrawal=((k*21)/numOfPlayers);
+    if(numOfPlayers!=3){ 
+        players.forEach(player=>{
+            if(player.wallet-=initWithdrawal){
+            player.wallet - initWithdrawal;  
+            startingBudget+= initWithdrawal; 
+            }
+            else {
+                return "Not enought funds for next game!";
+            }
+        })
         }
-        else {
-            return "Not enought funds for next game!";
+    else {
+        players.forEach(player=> {
+            
+            if(player.wallet-7>0){
+            player.wallet-=7;           
+            startingBudget +=7; 
+            }
+            else {
+                return "Not enought funds for next game!";
+            }
+        })
         }
-    })
     moneyOnTable=startingBudget;
     // 
     
@@ -176,13 +190,13 @@ const startGame = (players,rounds,gameType)=> {
 
     if(result.endGame) {
 
-        startGame(players,rounds-1)
+        startGame(players,rounds-1,gameType)
         return;
     };
     
         if(rounds!="bankruptcy" && rounds>=2){
             for(let i = 0 ; i<rounds-1; i++){
-                if(players.findIndex(player=>(player.wallet===0 && player.gameMoney===0))===-1){
+                if(players.findIndex(player=>(player.wallet===0 ))===-1){
                     stats.rounds+=1; 
                     if(!result.endGame){                
                         result = handleRound(nextPlayer,moneyOnTable,gameType); 
@@ -200,7 +214,7 @@ const startGame = (players,rounds,gameType)=> {
                     else{
                         // wallet logic
                         stats.lengthOfGames.push(i+1);
-                        startGame(players,rounds-(i+1));
+                        startGame(players,rounds-(i+1),gameType);
                         return;
                     }
             }
@@ -214,7 +228,7 @@ const startGame = (players,rounds,gameType)=> {
         }
         else  {
             let i=0;
-            while(players.findIndex(player=>(player.wallet===0 && player.gameMoney===0))===-1){
+            while(players.findIndex(player=>(player.wallet===0))===-1){
                 if(!result.endGame){  
                     i++;
                     stats.rounds+=1;              
@@ -233,7 +247,7 @@ const startGame = (players,rounds,gameType)=> {
                 else{
                     // wallet logic
                     stats.lengthOfGames.push(i+1);
-                    startGame(players,rounds-(i+1));
+                    startGame(players,rounds-(i+1),gameType);
                     return;
                 }
 

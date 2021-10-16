@@ -84,7 +84,7 @@ const maxFromArr = (arr)=> {
 const minFromArr = (arr)=> {
     return arr.reduce((prev,curr)=> Math.min(prev,curr));
 }
-
+exports.order=order;
 exports.minFromArr= minFromArr;
 exports.maxFromArr= maxFromArr;
 exports.S= S;
