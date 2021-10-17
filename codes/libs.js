@@ -47,6 +47,28 @@ const checkValues = (...args)=> {
         return false;
     }
 }
+const showAbortion =(array)=> {
+    //ukaze kolko akeho je pocet    
+    let uniqueArr = [];
+    array.forEach(e=> {        
+
+        if(uniqueArr.indexOf(e)===-1){
+            uniqueArr.push(e);
+        }
+    })    
+    let obj = {};    
+    for(let i = 0; i<uniqueArr.length;i++){
+        obj[uniqueArr[i]]=0;
+    }
+    uniqueArr.forEach(el=>{
+        array.forEach(e=>{
+            if(e===el){
+                obj[el]+=1;
+            }
+        })
+    })
+    return obj;
+}
 
 const R = (from,to,type)=> {
 
@@ -84,6 +106,7 @@ const maxFromArr = (arr)=> {
 const minFromArr = (arr)=> {
     return arr.reduce((prev,curr)=> Math.min(prev,curr));
 }
+exports.showAbortion=showAbortion;
 exports.order=order;
 exports.minFromArr= minFromArr;
 exports.maxFromArr= maxFromArr;

@@ -22,16 +22,7 @@ class Cubes {
     }
  }
 
-let stats = {
-    gamesCount:0,
-    roundsCount:0,
-    roundsPerGames:[],
-    winningPlayers:[],
-    onTableMoneyHistory:[],
-    lostMoneyInOneGame:[],
-    lostMoneyInOneRound:[],
-    maxLostMoneyInOneGame:[]
-}
+
 
 // kolko sa nachadza na stole
 let moneyOnTable=0;
@@ -119,6 +110,7 @@ const handleRound = (prevResult) => {
     if(cubesSum < moneyOnTable){
         players[indexOfCurrentPlayer].wallet += cubesSum;
         moneyOnTable -= cubesSum;
+        stats.moneyOnTable.push(moneyOnTable);
         return {
             nextPlayer:nextPlayer,
             moneyOnTable:moneyOnTable,
@@ -130,7 +122,9 @@ const handleRound = (prevResult) => {
         let diff = cubesSum-moneyOnTable;
         if(players[indexOfCurrentPlayer].wallet-diff >=0){
             players[indexOfCurrentPlayer].wallet -= diff;
-            moneyOnTable += diff;            
+            moneyOnTable += diff;    
+            stats.moneyOnTable.push(moneyOnTable);
+
             return {
                 nextPlayer:nextPlayer,
                 moneyOnTable:moneyOnTable,
@@ -161,6 +155,8 @@ const handleRound = (prevResult) => {
             }
         })                
         players[indexOfCurrentPlayer].wallet += (cubesSum+moneyFromPlayers);
+        stats.winners.push(players[indexOfCurrentPlayer].name);
+        stats.moneyOnTable.push(0);
         winners.push(players[indexOfCurrentPlayer].name);
         return {
             nextPlayer:nextPlayer,
@@ -174,7 +170,7 @@ const handleRound = (prevResult) => {
 
 }
 
-const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer) => {
+const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer) => {
           
      let resultOfRound= {            
             endGame: false,
@@ -183,12 +179,9 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
     if(firstTime){
         createPlayers(nPlayers,initWallet);
         createCubes(nCubes);              
-        resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)];
-        resultOfRound["moneyOnTable"]=initWithdrawal(players);
-              
-
-            
-          
+        fixedPlayer? resultOfRound["nextPlayer"]=players[0]: resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)];
+        resultOfRound["moneyOnTable"]=initWithdrawal(players);  
+                
     }
     else {
         if(gameType==="normal"){
@@ -210,17 +203,22 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         
     
     if(Number.isInteger(nRounds) && !nGames){
+        let gameLenght=0;
         for(let i=0;i<nRounds;i++){
+            stats.roundCount++;
             if(!resultOfRound.endGame && !resultOfRound.bankrupcy){                
                 resultOfRound = handleRound(resultOfRound);
             }
-            else if(resultOfRound.endGame && !resultOfRound.bankrupcy) {
+            else if(resultOfRound.endGame && !resultOfRound.bankrupcy) {                
+                gameLenght=i+1
+                stats.gameLenghts.push(gameLenght)
+                stats.gameCount++;
                 startGame(false,false,false,false,(nRounds-i-1),false,gameType,resultOfRound.winningPlayer);
                 //dokonci hru 
                 return;
             }
-            else if(!resultOfRound.bankrupcy){
-                console.log("Some of players has banckrupted!");
+            else if(resultOfRound.bankrupcy){
+                console.log(chalk.redBright(`Some of players has already banckrupted, game has stopped. There are ${chalk.greenBright(nRounds)}  rounds missing for fullfill argument of simulation!`));
                 return;
 
             }
@@ -228,17 +226,21 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
     }
     else if (Number.isInteger(nGames) && !nRounds){
            if(nGames>0){
-
-               while(!resultOfRound.endGame && !resultOfRound.bankrupcy){                
-                   
+               let gameLenght=0;
+               while(!resultOfRound.endGame && !resultOfRound.bankrupcy){    
+                   gameLenght++ ;        
+                   stats.roundCount++;
                    resultOfRound = handleRound(resultOfRound);                
                }
                // ked skonciHra zober vsetkym hracom vklad na novu hru
-               if(resultOfRound.endGame && !resultOfRound.bankrupcy){
+               if(resultOfRound.endGame && !resultOfRound.bankrupcy){                   
+                   stats.gameLenghts.push(gameLenght);
+                   stats.gameCount++;
                    startGame(false,false,false,false,false,(nGames-1),gameType,resultOfRound.winningPlayer);
                    return;
                }
                else if (resultOfRound.bankrupcy){
+                   console.log(chalk.redBright(`Some of players has banckrupted, game has stoped! There are ${chalk.greenBright(nGames)} games missing to fullfill argument of simulation!`));
                    return;
        
                }
@@ -250,26 +252,56 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         
     }
     else if (nRounds==="bankrupcy" && !nGames){
+        let gameLenght=0;
         while(!resultOfRound.endGame && !resultOfRound.bankrupcy){
+            stats.roundCount++;
+            gameLenght++
             resultOfRound = handleRound(resultOfRound);            
         }
         if(resultOfRound.endGame && !resultOfRound.bankrupcy){
-            startGame(false,false,false,false,"bankrupcy",false,gameType,resultOfRound.winningPlayer);
+            stats.gameCount++;
+            stats.gameLenghts.push(gameLenght);
+            startGame(false,false,false,false,"bankrupcy",false,gameType,resultOfRound.winningPlayer,true);
             return;
         }
         else if (resultOfRound.bankrupcy){
+            console.log(chalk.yellowBright("Some of players has banckrupted, generating stats...."));
             return;
-
         }
     }
     
 
 }
-startGame(true,3,500,6,0,1000,"normal",false)
+let stats = {
+    roundCount:0,
+    gameCount:0,
+    gameLenghts: [],
+    winners:[],
+    moneyOnTable:[],
+    maxMoneyLostPerGame : [],
+    moneyWonPerGame : []
+}
+
+    startGame(true,3,500,6,0,1,"normal",false,players[0])
+
 //vsetko funguje jak ma amigo :-) pohra sa s tym 
+console.log(chalk.blueBright(`Stav po poslednom kole: `))
 console.log(players)
-console.log(moneyOnTable)
-//console.log(winners);
+console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `)
+
+console.log(chalk.blueBright(`Počty: `))
+console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
+console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
+console.log(chalk.blueBright(`Stredné hodnoty:`))
+console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`)
+console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.mean(stats.moneyOnTable))}`)
+console.log(chalk.blueBright(`Rozloženie : `))
+console.log(chalk.blueBright(`  Výhercov:`));
+console.table(functions.showAbortion(stats.winners));
+console.log(chalk.blueBright(`  Peňazí na stole:`));
+console.table(functions.showAbortion(stats.moneyOnTable));
+
+
 
 
 
