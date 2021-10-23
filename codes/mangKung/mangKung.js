@@ -1,8 +1,9 @@
-const functions = require("./libs"); 
+const functions = require("../libs"); 
 const chalk = require("chalk");
 let players = [];
 let cubes = [];
 let winners= [];
+let walletArchive = [];
 class Player  {
     constructor(id,name,wallet){
         this.id=id;
@@ -33,12 +34,19 @@ const selectNextPlayer = (currentPlayer)=>{
     else return players[indexOfCurrentPlayer-1];
 }
 const createPlayers = (n,wallet) => {
+    players = [];
     
-    for(let i = 0 ; i<n; i++){
-        players.push( new Player(i+1,"Player"+(i+1),wallet));
-    }
+        for(let i = 0 ; i<n; i++){
+            players.push( new Player(i+1,"Player"+(i+1),wallet));
+        }
+
+    
+    
+
+    
 }
 const createCubes = (n) => {
+    cubes = [];
     for(let i = 1 ; i<=n;i++){
         cubes.push(new Cubes(i,0,0,0,0,0));
     }
@@ -94,6 +102,18 @@ const initWithdrawal = (players) => {
 
     return moneyOnTable;
 }
+
+const archiveWallet = (fixedNum)=> {
+    let initWallets =[];
+    if(fixedNum){
+     players.forEach(player=> initWallets.push(fixedNum));
+
+    }
+    else {
+     players.forEach(player=> initWallets.push(player.wallet))
+    }
+     return initWallets; 
+}
 let i = 0;
 const handleRound = (prevResult) => {
     i++;  
@@ -142,22 +162,28 @@ const handleRound = (prevResult) => {
     }
     else  {
         moneyOnTable =0;
-        let moneyFromPlayers = 0;
+        let moneyFromPlayers = 0;        
         players.forEach(player=> {
             if(player.wallet-cubesSum>=0){
-                moneyFromPlayers+=cubesSum;
+                moneyFromPlayers+=cubesSum;                
                 player.wallet-=cubesSum;
+                
             }
             else {
                 return {
                     bankrupcy:true
                 }
             }
-        })                
+        }) 
+                     
         players[indexOfCurrentPlayer].wallet += (cubesSum+moneyFromPlayers);
         stats.winners.push(players[indexOfCurrentPlayer].name);
         stats.moneyOnTable.push(0);
+        
         winners.push(players[indexOfCurrentPlayer].name);
+        let walletDiff =functions.arraysOperatos(walletArchive, "-", archiveWallet());  
+        stats.maxMoneyLostPerGame.push(functions.maxFromArr(walletDiff));
+        walletArchive = archiveWallet();      
         return {
             nextPlayer:nextPlayer,
             moneyOnTable:moneyOnTable,
@@ -176,14 +202,16 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
             endGame: false,
             bankrupcy:false
         } 
-    if(firstTime){
-        createPlayers(nPlayers,initWallet);
-        createCubes(nCubes);              
-        fixedPlayer? resultOfRound["nextPlayer"]=players[0]: resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)];
-        resultOfRound["moneyOnTable"]=initWithdrawal(players);  
-                
-    }
+        if(firstTime){
+            createPlayers(nPlayers,initWallet);
+            createCubes(nCubes);              
+            fixedPlayer? resultOfRound["nextPlayer"]=players[0]: resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)];
+            resultOfRound["moneyOnTable"]=initWithdrawal(players);
+            walletArchive=archiveWallet(initWallet);  
+            
+        }
     else {
+        walletArchive=archiveWallet();  
         if(gameType==="normal"){
             resultOfRound["nextPlayer"]=winningPlayer;    
             resultOfRound["moneyOnTable"]=initWithdrawal(players);
@@ -236,10 +264,11 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
                if(resultOfRound.endGame && !resultOfRound.bankrupcy){                   
                    stats.gameLenghts.push(gameLenght);
                    stats.gameCount++;
-                   startGame(false,false,false,false,false,(nGames-1),gameType,resultOfRound.winningPlayer);
+                   startGame(false,false,false,false,false,(nGames-1),gameType,resultOfRound.winningPlayer,false);
                    return;
                }
                else if (resultOfRound.bankrupcy){
+                   stats.bankrupcyRounds +=1;
                    console.log(chalk.redBright(`Some of players has banckrupted, game has stoped! There are ${chalk.greenBright(nGames)} games missing to fullfill argument of simulation!`));
                    return;
        
@@ -279,27 +308,58 @@ let stats = {
     winners:[],
     moneyOnTable:[],
     maxMoneyLostPerGame : [],
-    moneyWonPerGame : []
+    moneyWonPerGame : [],
+    oneGameTest :[],
+    bankrupcyRounds:0
 }
 
-    startGame(true,3,500,6,0,1,"normal",false,players[0])
+    // TEST NA JEDNU HRU CI HRAC MA VYHODU NA VITAZSTVO ALEBO PRIEMERNU VYHRU VYHRY
+   /*  for(let i = 0 ; i<1000 ; i++){
+        
+        startGame(true,20,500,6,0,1,"normal",false,true);
+        players.forEach(player => {
+            stats.oneGameTest.push({
+                name:player.name,
+                wallet:[]
+            })
+        })
+        players.forEach((player) => {
+            stats.oneGameTest.forEach(archiveName => {
+                if(player.name===archiveName.name){
+                    archiveName.wallet.push(player.wallet);
+                }
+            })
+        })
 
-//vsetko funguje jak ma amigo :-) pohra sa s tym 
-console.log(chalk.blueBright(`Stav po poslednom kole: `))
+    } */
+    
+ 
+    
+    for(let i =0; i<1000; i++ ){
+
+        startGame(true,3,500,6,0,1,"fixed",false,false);
+    }
+console.table(functions.showAbortion(stats.winners)); 
+console.log(stats.bankrupcyRounds);
+
+/* 
+
+  console.log(chalk.blueBright(`Stav po poslednom kole: `))
 console.log(players)
-console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `)
+console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `) 
 
 console.log(chalk.blueBright(`Počty: `))
 console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
 console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
 console.log(chalk.blueBright(`Stredné hodnoty:`))
 console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`)
-console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.mean(stats.moneyOnTable))}`)
+console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))}`)
 console.log(chalk.blueBright(`Rozloženie : `))
-console.log(chalk.blueBright(`  Výhercov:`));
-console.table(functions.showAbortion(stats.winners));
+ console.log(chalk.blueBright(`  Výhercov:`));
+console.table(functions.showAbortion(stats.winners)); 
 console.log(chalk.blueBright(`  Peňazí na stole:`));
-console.table(functions.showAbortion(stats.moneyOnTable));
+console.table(functions.showAbortion(stats.moneyOnTable));   */
+//console.dir((stats.maxMoneyLostPerGame),{'maxArrayLength': null});
 
 
 

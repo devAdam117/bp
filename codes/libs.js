@@ -103,9 +103,45 @@ const maxFromArr = (arr)=> {
     return arr.reduce((prev,curr)=> Math.max(prev,curr));
 }
 
+const arraysOperatos = (array1,operator,array2) => {
+    let resultArr = [];
+    
+    if(array1.length===array2.length){
+        
+        switch(operator){
+            case "+" :
+                array1.forEach((e,index)=> {
+                    resultArr.push(e+array2[index])
+                }) 
+                break ;
+                case "-" :
+                    
+                    array1.forEach((e,index)=> {
+                        resultArr.push(e-array2[index])
+                    })
+                    break ;
+                    case "*" : 
+                    array1.forEach((e,index)=> {
+                        resultArr.push(e*array2[index])
+                    })
+                    break ;
+                    case "/" : 
+                    array1.forEach((e,index)=> {
+                        resultArr.push(e/array2[index])
+                    })
+                    break ;
+                    
+                    
+                }
+            }
+            
+            return resultArr; 
+}
+
 const minFromArr = (arr)=> {
     return arr.reduce((prev,curr)=> Math.min(prev,curr));
 }
+exports.arraysOperatos=arraysOperatos;
 exports.showAbortion=showAbortion;
 exports.order=order;
 exports.minFromArr= minFromArr;
