@@ -313,56 +313,73 @@ let stats = {
     bankrupcyRounds:0
 }
 
-    // TEST NA JEDNU HRU CI HRAC MA VYHODU NA VITAZSTVO ALEBO PRIEMERNU VYHRU VYHRY
-   /*  for(let i = 0 ; i<1000 ; i++){
-        
-        startGame(true,20,500,6,0,1,"normal",false,true);
-        players.forEach(player => {
-            stats.oneGameTest.push({
-                name:player.name,
-                wallet:[]
-            })
-        })
-        players.forEach((player) => {
-            stats.oneGameTest.forEach(archiveName => {
-                if(player.name===archiveName.name){
-                    archiveName.wallet.push(player.wallet);
-                }
-            })
-        })
+    // TEST NA JEDNU HRU CI HRAC MA VYHODU NA PRIEMERNU VYHRU
+        const cSimulation = (nGames,fixed) => {
 
-    } */
+            for(let i = 0 ; i<1000 ; i++){
+                   
+                   startGame(true,3,500,6,0,nGames,"normal",false,fixed);
+                   players.forEach(player => {
+                       stats.oneGameTest.push({
+                           name:player.name,
+                           wallet:[]
+                       })
+                   })
+                   players.forEach((player) => {
+                       stats.oneGameTest.forEach(archiveName => {
+                           if(player.name===archiveName.name){
+                               archiveName.wallet.push(player.wallet);
+                           }
+                       })
+                   })
+           
+               }  
+        } 
+       // TEST na ulohu b), ci ma fixny hrac vacsiu pp na vyhru pri jednej opakovanej hre        
     
  
     
-    for(let i =0; i<1000; i++ ){
+    
+const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer) => {
 
-        startGame(true,3,500,6,0,1,"fixed",false,false);
-    }
-console.table(functions.showAbortion(stats.winners)); 
-console.log(stats.bankrupcyRounds);
-
-/* 
-
-  console.log(chalk.blueBright(`Stav po poslednom kole: `))
-console.log(players)
-console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `) 
-
-console.log(chalk.blueBright(`Počty: `))
-console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
-console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
-console.log(chalk.blueBright(`Stredné hodnoty:`))
-console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`)
-console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))}`)
-console.log(chalk.blueBright(`Rozloženie : `))
- console.log(chalk.blueBright(`  Výhercov:`));
-console.table(functions.showAbortion(stats.winners)); 
-console.log(chalk.blueBright(`  Peňazí na stole:`));
-console.table(functions.showAbortion(stats.moneyOnTable));   */
-//console.dir((stats.maxMoneyLostPerGame),{'maxArrayLength': null});
-
+    startGame(firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer);
+    
+    
+    console.log(chalk.blueBright(`Stav po poslednom kole: `))
+    console.log(players)
+    console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `) 
+    
+    console.log(chalk.blueBright(`Počty: `))
+    console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
+    console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
+    console.log(chalk.blueBright(`Stredné hodnoty:`))
+    console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`)
+    console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))}`)
+    console.log(chalk.blueBright(`Rozloženie : `))
+    console.log(chalk.blueBright(`  Výhercov:`));
+    console.table(functions.showAbortion(stats.winners)); 
+    console.log(chalk.blueBright(`  Peňazí na stole:`));
+    console.table(functions.showAbortion(stats.moneyOnTable));   
+    console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`))
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));
+}
 
 
+//simulate(true,3,500,6,0,1000,"fixed",false,false)
+// Prvy argument => je to prva hra? :true/dalse
+// Druhy argument => kolko je hracov : int od 3 po n
+// Treti argument => kolko ma mat kazdy hrac na zaciatku zetonov :int od 0 po n
+// Stvrty argument => kolko je kociek ?  analogicky ak by bolo 10 kociek tak 10. kocka ma na jednej stene 10 a inde nuly : int od  1 po n
+// Piaty argument => hra ma skoncit po  nejakom pocte hodov kociek :int  od 0 po n (ak nejaky hrac pred n-tym hodom zbrankrotuje tak hra konci predcasne)
+// Siesty argument => o aky typ hry ide ? :"fixed" - kazdu hru bude na zaciatku  fixne vybraty hrac1 
+//                                        :"normal" - vyber dalsieho hraca podla pravidiel
+//                                        :"random" - vyber dalsieho hraca nahodne
+//Siedmy argumnt => je nejaky vyherca hry? :false - samotna hra si to vyplna za seba, takze nechat to na false
+//Osmy argument => prvy hrac v prvu hru ma byt vybrane fixne ? : true/false 
+
+exports.stats= stats;
+exports.startGame= startGame;
+exports.cSimulation=cSimulation
 
 
 
