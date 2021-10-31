@@ -315,26 +315,37 @@ let stats = {
 
     // TEST NA JEDNU HRU CI HRAC MA VYHODU NA PRIEMERNU VYHRU
         const cSimulation = (nGames,fixed) => {
-
-            for(let i = 0 ; i<1000 ; i++){
-                   
-                   startGame(true,3,500,6,0,nGames,"normal",false,fixed);
-                   players.forEach(player => {
-                       stats.oneGameTest.push({
-                           name:player.name,
-                           wallet:[]
-                       })
-                   })
-                   players.forEach((player) => {
-                       stats.oneGameTest.forEach(archiveName => {
-                           if(player.name===archiveName.name){
-                               archiveName.wallet.push(player.wallet);
-                           }
-                       })
-                   })
+            let i =0;
+            while(i<10000){
+                startGame(true,3,500,6,0,nGames,"normal",false,fixed);
+                players.forEach(player => {
+                    stats.oneGameTest.push({
+                        name:player.name,
+                        wallet:[],
+                        meanVals : []
+                    })
+                })
+                
+                
+                players.forEach((player) => {
+                    stats.oneGameTest.forEach(archiveName => {
+                        if(player.name===archiveName.name){
+                            archiveName.wallet.push(player.wallet);
+                            //archiveName.meanVals.push(functions.mean(player.wallet));
+                        }
+                    })
+                })
+                stats.oneGameTest[0].meanVals.push(functions.mean(stats.oneGameTest[0].wallet));
+                console.log(i);
+                i++;
+            }
+            console.dir(stats.oneGameTest[0].meanVals,{'maxArrayLength': null});
+            console.dir(stats.oneGameTest[2].meanVals,{'maxArrayLength': null});
+            console.dir(stats.oneGameTest[1].meanVals,{'maxArrayLength': null});                    
            
-               }  
-        } 
+               } 
+               
+        
        // TEST na ulohu b), ci ma fixny hrac vacsiu pp na vyhru pri jednej opakovanej hre        
     
  
