@@ -1,5 +1,7 @@
 const functions = require("../libs"); 
 const chalk = require("chalk");
+const fs = require('fs');
+const arrayToTxtFile = require('array-to-txt-file')
 let players = [];
 let cubes = [];
 let winners= [];
@@ -256,9 +258,11 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
            if(nGames>0){
                let gameLenght=0;
                while(!resultOfRound.endGame && !resultOfRound.bankrupcy){    
-                   gameLenght++ ;        
+                   gameLenght++ ;  
                    stats.roundCount++;
-                   resultOfRound = handleRound(resultOfRound);                
+                   resultOfRound = handleRound(resultOfRound);   
+                   /* console.log(players)                                   
+                   console.log(gameLenght) */
                }
                // ked skonciHra zober vsetkym hracom vklad na novu hru
                if(resultOfRound.endGame && !resultOfRound.bankrupcy){                   
@@ -316,7 +320,7 @@ let stats = {
     // TEST NA JEDNU HRU CI HRAC MA VYHODU NA PRIEMERNU VYHRU
         const cSimulation = (nGames,fixed) => {
             let i =0;
-            while(i<10000){
+            while(i<15000){
                 startGame(true,3,500,6,0,nGames,"normal",false,fixed);
                 players.forEach(player => {
                     stats.oneGameTest.push({
@@ -331,17 +335,28 @@ let stats = {
                     stats.oneGameTest.forEach(archiveName => {
                         if(player.name===archiveName.name){
                             archiveName.wallet.push(player.wallet);
-                            //archiveName.meanVals.push(functions.mean(player.wallet));
+                           // archiveName.meanVals.push(functions.mean(player.wallet));
                         }
                     })
                 })
                 stats.oneGameTest[0].meanVals.push(functions.mean(stats.oneGameTest[0].wallet));
-                console.log(i);
+                console.log(i)
                 i++;
             }
-            console.dir(stats.oneGameTest[0].meanVals,{'maxArrayLength': null});
+            arrayToTxtFile([stats.oneGameTest[0].meanVals], './output.txt', err => {
+                if(err) {
+                  console.error(err)
+                  return
+                }
+                console.log('Successfully wrote to txt file')
+            })
+             /* console.dir(stats.oneGameTest[0].wallet,{'maxArrayLength': null});
+            console.dir(stats.oneGameTest[2].wallet,{'maxArrayLength': null});
+            console.dir(stats.oneGameTest[1].wallet,{'maxArrayLength': null}); */
+            //Stredne hodnoty x_i konvergencia...
+            /* console.dir(stats.oneGameTest[0].meanVals,{'maxArrayLength': null});
             console.dir(stats.oneGameTest[2].meanVals,{'maxArrayLength': null});
-            console.dir(stats.oneGameTest[1].meanVals,{'maxArrayLength': null});                    
+            console.dir(stats.oneGameTest[1].meanVals,{'maxArrayLength': null});      */               
            
                } 
                
@@ -355,12 +370,12 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
 
     startGame(firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer);
     
-    
+    console.log(stats.roundCount)
     console.log(chalk.blueBright(`Stav po poslednom kole: `))
     console.log(players)
     console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `) 
     
-    console.log(chalk.blueBright(`Počty: `))
+    /* console.log(chalk.blueBright(`Počty: `))
     console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
     console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
     console.log(chalk.blueBright(`Stredné hodnoty:`))
@@ -372,11 +387,11 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
     console.log(chalk.blueBright(`  Peňazí na stole:`));
     console.table(functions.showAbortion(stats.moneyOnTable));   
     console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`))
-    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame))); */
 }
 
 
-//simulate(true,3,500,6,0,1000,"fixed",false,false)
+//simulate(true,3,30,6,0,1,"normal",false,false)
 // Prvy argument => je to prva hra? :true/dalse
 // Druhy argument => kolko je hracov : int od 3 po n
 // Treti argument => kolko ma mat kazdy hrac na zaciatku zetonov :int od 0 po n
