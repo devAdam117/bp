@@ -54,41 +54,66 @@ const createCubes = (n) => {
     }
 
 }
-const initWithdrawal = (players) => {
-    let k=1;
+const initWithdrawal = (players,fixedWithdrawal) => {
+    if(!fixedWithdrawal){
+        
+        let k=1;
+        
+        while(!Number.isInteger((k*21)/players.length)){
+            k++;
+        
+        }
+        
+        let playersWithdrawal=((k*21)/players.length);
+        if(players.length!=3){ 
+        
     
-    while(!Number.isInteger((k*21)/players.length)){
-        k++;
+            players.forEach(player=>{
+                if(player.wallet-playersWithdrawal>0){
+                player.wallet -= playersWithdrawal;  
+                moneyOnTable+= playersWithdrawal; 
+                }
+                else {
+                    return {
+                        bankrupcy:true
+                    };
+                }
+            })
+        
     
+        }
+    
+        else {
+        
+    
+            players.forEach(player=> {
+                
+                if(player.wallet-7>0){
+                player.wallet-=7;           
+                moneyOnTable +=7; 
+                }
+                else {
+                    return {
+                        bankrupcy:true
+                    };
+                }
+            })
+        
+    
+    
+        }
+        
+    
+        
     }
-    
-    let playersWithdrawal=((k*21)/players.length);
-    if(players.length!=3){ 
-    
-
-        players.forEach(player=>{
-            if(player.wallet-playersWithdrawal>0){
-            player.wallet -= playersWithdrawal;  
-            moneyOnTable+= playersWithdrawal; 
-            }
-            else {
-                return {
-                    bankrupcy:true
-                };
-            }
-        })
-    
-
-    }
-
     else {
-    
-
-        players.forEach(player=> {
-            
-            if(player.wallet-7>0){
-            player.wallet-=7;           
-            moneyOnTable +=7; 
+       
+        
+        
+        players.forEach(player=>{
+            if(player.wallet-fixedWithdrawal>0){
+            player.wallet -= fixedWithdrawal;  
+            moneyOnTable+= fixedWithdrawal;            
             }
             else {
                 return {
@@ -96,12 +121,11 @@ const initWithdrawal = (players) => {
                 };
             }
         })
-    
-
-
+       
+        
+        
+        
     }
-    
-
     return moneyOnTable;
 }
 
@@ -198,7 +222,7 @@ const handleRound = (prevResult) => {
 
 }
 
-const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer) => {
+const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer,initWithdrawalAmount) => {
           
      let resultOfRound= {            
             endGame: false,
@@ -208,7 +232,7 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
             createPlayers(nPlayers,initWallet);
             createCubes(nCubes);              
             fixedPlayer? resultOfRound["nextPlayer"]=players[0]: resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)];
-            resultOfRound["moneyOnTable"]=initWithdrawal(players);
+            resultOfRound["moneyOnTable"]=initWithdrawal(players,initWithdrawalAmount);
             walletArchive=archiveWallet(initWallet);  
             
         }
@@ -216,17 +240,17 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         walletArchive=archiveWallet();  
         if(gameType==="normal"){
             resultOfRound["nextPlayer"]=winningPlayer;    
-            resultOfRound["moneyOnTable"]=initWithdrawal(players);
+            resultOfRound["moneyOnTable"]=initWithdrawal(players,initWithdrawalAmount);
 
         }
         else if (gameType==="random"){
             resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)]; 
-            resultOfRound["moneyOnTable"]=initWithdrawal(players);
+            resultOfRound["moneyOnTable"]=initWithdrawal(players,initWithdrawalAmount);
 
         }
         else if(gameType==="fixed"){
             resultOfRound["nextPlayer"]=players[0]; 
-            resultOfRound["moneyOnTable"]=initWithdrawal(players);
+            resultOfRound["moneyOnTable"]=initWithdrawal(players,initWithdrawalAmount);
 
         }
     }
@@ -243,7 +267,7 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
                 gameLenght=i+1
                 stats.gameLenghts.push(gameLenght)
                 stats.gameCount++;
-                startGame(false,false,false,false,(nRounds-i-1),false,gameType,resultOfRound.winningPlayer);
+                startGame(false,false,false,false,(nRounds-i-1),false,gameType,resultOfRound.winningPlayer,false,initWithdrawalAmount);
                 //dokonci hru 
                 return;
             }
@@ -268,7 +292,7 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
                if(resultOfRound.endGame && !resultOfRound.bankrupcy){                   
                    stats.gameLenghts.push(gameLenght);
                    stats.gameCount++;
-                   startGame(false,false,false,false,false,(nGames-1),gameType,resultOfRound.winningPlayer,false);
+                   startGame(false,false,false,false,false,(nGames-1),gameType,resultOfRound.winningPlayer,false,initWithdrawalAmount);
                    return;
                }
                else if (resultOfRound.bankrupcy){
@@ -294,7 +318,7 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         if(resultOfRound.endGame && !resultOfRound.bankrupcy){
             stats.gameCount++;
             stats.gameLenghts.push(gameLenght);
-            startGame(false,false,false,false,"bankrupcy",false,gameType,resultOfRound.winningPlayer,true);
+            startGame(false,false,false,false,"bankrupcy",false,gameType,resultOfRound.winningPlayer,false,initWithdrawalAmount);
             return;
         }
         else if (resultOfRound.bankrupcy){
@@ -320,8 +344,8 @@ let stats = {
     // TEST NA JEDNU HRU CI HRAC MA VYHODU NA PRIEMERNU VYHRU
         const cSimulation = (nGames,fixed) => {
             let i =0;
-            while(i<15000){
-                startGame(true,3,500,6,0,nGames,"normal",false,fixed);
+            while(i<5000){
+                startGame(true,3,5000,6,0,nGames,"normal",false,fixed,false);
                 players.forEach(player => {
                     stats.oneGameTest.push({
                         name:player.name,
@@ -339,11 +363,11 @@ let stats = {
                         }
                     })
                 })
-                stats.oneGameTest[0].meanVals.push(functions.mean(stats.oneGameTest[0].wallet));
+                //stats.oneGameTest[0].meanVals.push(functions.fastMean(stats.oneGameTest[0].wallet.length,stats.oneGameTest.wall));
                 console.log(i)
                 i++;
             }
-            arrayToTxtFile([stats.oneGameTest[0].meanVals], './output.txt', err => {
+            arrayToTxtFile([stats.oneGameTest[0].wallet,"first",stats.oneGameTest[2].wallet,"second",stats.oneGameTest[1].wallet,"third"], './output.txt', err => {
                 if(err) {
                   console.error(err)
                   return
@@ -366,32 +390,34 @@ let stats = {
  
     
     
-const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer) => {
+const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer,initWithdrawalAmount) => {
 
-    startGame(firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer);
+    startGame(firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer,initWithdrawalAmount);
     
-    /* console.log(stats.roundCount)
+      console.log(stats.roundCount)
     console.log(chalk.blueBright(`Stav po poslednom kole: `))
     console.log(players)
-    console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `)  */
+    console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `)  
     
-     /* console.log(chalk.blueBright(`Počty: `))
+      console.log(chalk.blueBright(`Počty: `))
     console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
     console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
-    console.log(chalk.blueBright(`Stredné hodnoty:`)) */
-    console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`)
-   /*  console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))}`)
-    console.log(chalk.blueBright(`Rozloženie : `))
+    console.log(chalk.blueBright(`Stredné hodnoty:`))  
+    console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`) 
+     console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))},`)
+      console.log(chalk.blueBright(`Rozloženie : `))
     console.log(chalk.blueBright(`  Výhercov:`));
     console.table(functions.showAbortion(stats.winners)); 
     console.log(chalk.blueBright(`  Peňazí na stole:`));
     console.table(functions.showAbortion(stats.moneyOnTable));   
     console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`)) 
-    console.log((functions.showAbortion(stats.maxMoneyLostPerGame))); */
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));   
 }
 
 
-simulate(true,100,10000,6,0,1000,"normal",false,false)
+
+    simulate(true,3,5000,6,0,1000,"normal",false,false,i)
+
 // Prvy argument => je to prva hra? :true/dalse
 // Druhy argument => kolko je hracov : int od 3 po n
 // Treti argument => kolko ma mat kazdy hrac na zaciatku zetonov :int od 0 po n
@@ -402,6 +428,7 @@ simulate(true,100,10000,6,0,1000,"normal",false,false)
 //                                        :"random" - vyber dalsieho hraca nahodne
 //Siedmy argumnt => je nejaky vyherca hry? :false - samotna hra si to vyplna za seba, takze nechat to na false
 //Osmy argument => prvy hrac v prvu hru ma byt vybrane fixne ? : true/false 
+// posledny argument => novy pociatocny vklad na hraca
 
 exports.stats= stats;
 exports.startGame= startGame;
