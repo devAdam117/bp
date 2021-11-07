@@ -14,6 +14,19 @@ const sumElement=(array,element) => {
     return totalSum;
     
 }
+const fastMean = (arrayLength,prevMeanVals,newValue)=>  {    
+    if(arrayLength===1) return newValue;
+    else {
+        let lastMean = prevMeanVals[prevMeanVals.length-1]
+        let sumOfArr= lastMean*(arrayLength-1);
+        return (sumOfArr+newValue)/arrayLength;
+       
+    } 
+    
+
+
+
+}
 
 const mean = (array) => {
     let n=array.length;
@@ -141,6 +154,7 @@ const arraysOperatos = (array1,operator,array2) => {
 const minFromArr = (arr)=> {
     return arr.reduce((prev,curr)=> Math.min(prev,curr));
 }
+exports.fastMean=fastMean;
 exports.arraysOperatos=arraysOperatos;
 exports.showAbortion=showAbortion;
 exports.order=order;
