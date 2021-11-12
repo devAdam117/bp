@@ -394,7 +394,7 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
 
     startGame(firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer,initWithdrawalAmount);
     
-      console.log(stats.roundCount)
+      /* console.log(stats.roundCount)
     console.log(chalk.blueBright(`Stav po poslednom kole: `))
     console.log(players)
     console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `)  
@@ -404,19 +404,29 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
     console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
     console.log(chalk.blueBright(`Stredné hodnoty:`))  
     console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`) 
-     console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))},`)
+     console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))},`) */
       console.log(chalk.blueBright(`Rozloženie : `))
     console.log(chalk.blueBright(`  Výhercov:`));
     console.table(functions.showAbortion(stats.winners)); 
-    console.log(chalk.blueBright(`  Peňazí na stole:`));
+    /* console.log(chalk.blueBright(`  Peňazí na stole:`));
     console.table(functions.showAbortion(stats.moneyOnTable));   
     console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`)) 
-    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));   
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));    */
 }
 
 
 
-    simulate(true,3,5000,6,0,1000,"normal",false,false,i)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
+   
 
 // Prvy argument => je to prva hra? :true/dalse
 // Druhy argument => kolko je hracov : int od 3 po n
