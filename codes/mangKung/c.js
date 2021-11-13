@@ -1,7 +1,7 @@
 const simulation = require("./mangKung");
 const functions = require("../libs");
 const chalk = require("chalk");
-let numberOfGames = 1;  // 1 pre Table5 ,>1 pre Table 6
+let numberOfGames = 500;  // 1 pre Table5 ,>1 pre Table 6
 let fixedPlayer = true;
 simulation.cSimulation(numberOfGames,fixedPlayer);
 console.log( `E(výhra ${chalk.blueBright("H_1")}) je približne ${chalk.greenBright(functions.mean(simulation.stats.oneGameTest[0].wallet))}`);

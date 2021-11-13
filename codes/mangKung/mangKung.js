@@ -408,14 +408,23 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
       console.log(chalk.blueBright(`Rozloženie : `))
     console.log(chalk.blueBright(`  Výhercov:`));
     console.table(functions.showAbortion(stats.winners)); 
-    /* console.log(chalk.blueBright(`  Peňazí na stole:`));
-    console.table(functions.showAbortion(stats.moneyOnTable));   
+    arrayToTxtFile([stats.moneyOnTable], './output.txt', err => {
+        if(err) {
+          console.error(err)
+          return
+        }
+        console.log('Successfully wrote to txt file')
+    })
+    console.log(chalk.blueBright(`  Peňazí na stole:`));
+   console.table(functions.showAbortion(stats.moneyOnTable));   
     console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`)) 
-    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));    */
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));    
 }
 
 
 
+     simulate(true,3,5000,6,0,1000,"normal",false,true,6)
+    /*simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
@@ -424,9 +433,7 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
-    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
-    simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
-   
+    */
 
 // Prvy argument => je to prva hra? :true/dalse
 // Druhy argument => kolko je hracov : int od 3 po n
