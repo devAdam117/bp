@@ -383,9 +383,24 @@ let stats = {
             console.dir(stats.oneGameTest[1].meanVals,{'maxArrayLength': null});      */               
            
                } 
+
+
                
         
-       // TEST na ulohu b), ci ma fixny hrac vacsiu pp na vyhru pri jednej opakovanej hre        
+       // TEST na ulohu b), ci ma fixny hrac vacsiu pp na vyhru pri jednej opakovanej hre  
+       
+       const gSimulation=(nGames)=> {
+            startGame(true,3,5000,6,0,nGames,"normal",false,false,false);
+            console.log(stats.maxMoneyLostPerGame);
+            arrayToTxtFile([stats.maxMoneyLostPerGame], './output.txt', err => {
+                if(err) {
+                console.error(err)
+                return
+                }
+                console.log('Successfully wrote to txt file')
+            })
+
+       }
     
  
     
@@ -405,7 +420,7 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
     console.log(chalk.blueBright(`Stredné hodnoty:`))  
     console.log(`E(dĺžka jednej hry v kolách)= ${chalk.greenBright(functions.mean(stats.gameLenghts))}`) 
      console.log(`E(peňazí na stole)= ${chalk.greenBright(functions.roundDecimals(functions.mean(stats.moneyOnTable),2))},`) */
-      console.log(chalk.blueBright(`Rozloženie : `))
+     /*  console.log(chalk.blueBright(`Rozloženie : `))
     console.log(chalk.blueBright(`  Výhercov:`));
     console.table(functions.showAbortion(stats.winners)); 
     arrayToTxtFile([stats.moneyOnTable], './output.txt', err => {
@@ -416,14 +431,21 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         console.log('Successfully wrote to txt file')
     })
     console.log(chalk.blueBright(`  Peňazí na stole:`));
-   console.table(functions.showAbortion(stats.moneyOnTable));   
+   console.table(functions.showAbortion(stats.moneyOnTable));  */  
     console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`)) 
-    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));    
+    arrayToTxtFile([[1,1,1,1]], './output.txt', err => {
+        if(err) {
+          console.error(err)
+          return
+        }
+        console.log('Successfully wrote to txt file')
+    })  
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));  
 }
 
 
 
-     simulate(true,3,5000,6,0,1000,"normal",false,true,6)
+     //simulate(true,3,5000,6,0,1000,"normal",false,false,7)
     /*simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
@@ -449,6 +471,7 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
 
 exports.stats= stats;
 exports.startGame= startGame;
+exports.gSimulation = gSimulation;
 exports.cSimulation=cSimulation
 
 
