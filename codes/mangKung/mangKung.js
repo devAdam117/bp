@@ -145,7 +145,7 @@ const handleRound = (prevResult) => {
     i++;  
     
     moneyOnTable = prevResult.moneyOnTable;  
-     
+    
     let indexOfCurrentPlayer =players.findIndex(player => player.id === prevResult.nextPlayer.id);
     let nextPlayer = selectNextPlayer(players[indexOfCurrentPlayer]);
     let cubesSum = 0;
@@ -233,6 +233,7 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
             createCubes(nCubes);              
             fixedPlayer? resultOfRound["nextPlayer"]=players[0]: resultOfRound["nextPlayer"]=players[Math.floor(Math.random()*players.length)];
             resultOfRound["moneyOnTable"]=initWithdrawal(players,initWithdrawalAmount);
+            stats.moneyOnTable.push(resultOfRound.moneyOnTable)
             walletArchive=archiveWallet(initWallet);  
             
         }
@@ -241,6 +242,7 @@ const startGame= (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         if(gameType==="normal"){
             resultOfRound["nextPlayer"]=winningPlayer;    
             resultOfRound["moneyOnTable"]=initWithdrawal(players,initWithdrawalAmount);
+            stats.moneyOnTable.push(resultOfRound.moneyOnTable)
 
         }
         else if (gameType==="random"){

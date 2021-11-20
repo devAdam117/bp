@@ -1,7 +1,7 @@
 const simulation = require("./mangKung");
 const functions = require("../libs");
 const chalk = require("chalk");
-
+const arrayToTxtFile = require('array-to-txt-file')
 let players= [];
 let cubes = [];
 let moneyOnTable = 0;
@@ -26,6 +26,7 @@ console.table(functions.showAbortion(simulation.stats.winners));
 console.log(chalk.blueBright(`  Peňazí na stole:`));
 console.table(functions.showAbortion(simulation.stats.moneyOnTable));   
 console.dir((simulation.stats.maxMoneyLostPerGame),{'maxArrayLength': null});
+
 }
-simulate(true,3,500,6,0,100,"normal",false,true);
+simulate(true,3,5000,6,0,1000,"normal",false,false);
 
