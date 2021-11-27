@@ -410,12 +410,12 @@ let stats = {
 const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer,initWithdrawalAmount) => {
 
     startGame(firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,winningPlayer,fixedPlayer,initWithdrawalAmount);
-    
-      /* console.log(stats.roundCount)
+    test.push(players[0].wallet);
+       /* console.log(stats.roundCount)
     console.log(chalk.blueBright(`Stav po poslednom kole: `))
-    console.log(players)
+    console.log(players) */
+    /*
     console.log(`Zostatok žetónov na stole: ${chalk.greenBright(moneyOnTable)} `)  
-    
       console.log(chalk.blueBright(`Počty: `))
     console.log(`Celkový # odohraných hier: ${chalk.greenBright(stats.gameCount)}`);
     console.log(`Celkový # hodení kociek: ${chalk.greenBright(stats.roundCount)}`);
@@ -433,21 +433,17 @@ const simulate = (firstTime,nPlayers,initWallet,nCubes,nRounds,nGames,gameType,w
         console.log('Successfully wrote to txt file')
     })
     console.log(chalk.blueBright(`  Peňazí na stole:`));
-   console.table(functions.showAbortion(stats.moneyOnTable));  */  
-    console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`)) 
-    arrayToTxtFile([[1,1,1,1]], './output.txt', err => {
-        if(err) {
-          console.error(err)
-          return
-        }
-        console.log('Successfully wrote to txt file')
-    })  
-    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));  
+   console.table(functions.showAbortion(stats.moneyOnTable));  
+    console.log(chalk.blueBright(`Maximalné prehry histo-tabulka`))     
+    console.log((functions.showAbortion(stats.maxMoneyLostPerGame)));
+    */    
 }
 
-
-
-     //simulate(true,3,5000,6,0,1000,"normal",false,false,7)
+    let test = [];
+    for(let i = 0 ; i < 1000 ; i++){
+        simulate(true,3,5000,6,0,100,"normal",false,true)
+    }
+    console.log(functions.mean(test))
     /*simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
     simulate(true,3,5000,6,0,1000,"fixed",false,true,false)
