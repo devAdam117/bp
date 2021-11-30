@@ -19,13 +19,14 @@ const startGame = (nPlayers,nPairs,nSim) => {
         livingPlayers= nPlayers;
         unknownPairs = nPairs;
         while(livingPlayers>0 && unknownPairs>0){
-            let decidingJump = Math.random();
+              let decidingJump = Math.random();
             if(decidingJump>0.5){
                 unknownPairs --;        
             }
             else {
                 unknownPairs --;
                 livingPlayers --;
+                console.log(nPairs-unknownPairs)
             }
         }        
         stats.nEscapee.push(livingPlayers);
@@ -33,9 +34,9 @@ const startGame = (nPlayers,nPairs,nSim) => {
     }
 }
 
-let initPlayers = 30;
-let initGlassPairs = 70;
-let nSim = 100000;
+let initPlayers = 16;
+let initGlassPairs = 18;
+let nSim = 1;
 
 startGame(initPlayers,initGlassPairs,nSim);
 arrayToTxtFile([stats.nEscapee], './output.txt', err => {
