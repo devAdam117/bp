@@ -21,9 +21,6 @@ const bSimulation = (nGames, fixed) => {
     console.log(`Pomer vyhier hráča Player1 je ${chalk.greenBright(functions.roundDecimals((winsH1.reduce((acc,curr)=> acc+curr)/100),2))} `);
     console.log(`Pomer vyhier hráča Player2 je ${chalk.greenBright(functions.roundDecimals((winsH2.reduce((acc,curr)=> acc+curr)/100),2))} `);
     console.log(`Pomer vyhier hráča Player3 je ${chalk.greenBright(functions.roundDecimals((winsH3.reduce((acc,curr)=> acc+curr)/100),2))} `); 
-    console.log(chalk.blueBright(`Celkovo sa odohralo 100 simulácií a v každej simulácií 1000 X ${nGames} hier`))   
-    
-    
+    console.log(chalk.blueBright(`Celkovo sa odohralo 100 simulácií a v každej simulácií 1000 X ${nGames} hier`));
 }
-
 bSimulation(1,true);

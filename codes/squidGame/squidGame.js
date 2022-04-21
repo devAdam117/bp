@@ -8,7 +8,7 @@ const arrayToTxtFile = require('array-to-txt-file');
 let stats = {
     nEscapee:[],
     nPairs:[]
-}
+};
 
 
 
@@ -24,9 +24,8 @@ const startGame = (nPlayers,nPairs,nSim) => {
                 unknownPairs --;        
             }
             else {
-                unknownPairs --;
-                livingPlayers --;
-                //console.log(nPairs-unknownPairs)
+                unknownPairs--;
+                livingPlayers--;                
             }
         }        
         stats.nEscapee.push(livingPlayers);
@@ -36,20 +35,20 @@ const startGame = (nPlayers,nPairs,nSim) => {
 
 let initPlayers = 16;
 let initGlassPairs = 18;
-let nSim = 1000;
+let nSim = 1000000;
 
 startGame(initPlayers,initGlassPairs,nSim);
 arrayToTxtFile([stats.nEscapee], './output.txt', err => {
     if(err) {
-      console.error(err)
+      console.error(err);
       return
     }
-    console.log('Successfully wrote to txt file')
+    console.log('Successfully wrote to txt file');
 })
-console.log(chalk.blueBright("Abortion of escapees:"))
-console.table(functions.showAbortion(stats.nEscapee))
-console.log(chalk.blueBright("Abortion of unknown pairs:"))
-console.table(functions.showAbortion(stats.nPairs))
+console.log(chalk.blueBright("Abortion of escapees:"));
+console.table(functions.showAbortion(stats.nEscapee));
+console.log(chalk.blueBright("Abortion of unknown pairs:"));
+console.table(functions.showAbortion(stats.nPairs));
 
 
 

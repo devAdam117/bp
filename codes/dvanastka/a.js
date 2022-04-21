@@ -19,10 +19,10 @@ const startSimulation=(nThrows,passingValue) => {
     }
     arrayToTxtFile([overPassedNums], './output.txt', err => {
         if(err) {
-          console.error(err)
+          console.error(err);
           return
         }
-        console.log('Successfully wrote to txt file')
+        console.log('Successfully wrote to txt file');
     })
     return overPassedNums;
 }

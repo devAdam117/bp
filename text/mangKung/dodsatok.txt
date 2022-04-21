@@ -1,5 +1,0 @@
-Pri vypocte kde pocitae priemernu vyhru/prehru pri n-dlzkovwej hre, spustame spravidla 1000 simulacii pre n-dlzkovu hru a potom 
-z nej zistujeme priemernu vyhru na jednu simulaciu, teda na jedno odohranie.
-Ked je n spravidla = 1,2,3 az po cca 10 tak pravidelne spustanie 1000 simulaciii ukazuje priemernu vyhru H_1 > 0.
-Ak vsak n je spravidla > 10 tak pravidelne spusstanie 1000 simulacii ukazuje priemernu vyhru H_1 neustalenu ktora sa pohybuje nad aj pod nulou
-to vsak nemusi znamenat ze tam nie je zakomponovana jeho vyhoda cca 1.17 vybratia na zaciatku hry.

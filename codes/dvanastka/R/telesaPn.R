@@ -96,13 +96,13 @@
     abline(h=p(1000,kocka), col="red")
     axis(2,at=p(1000,kocka),labels="0.2857143",col="red")  
   #Stvorsten
-    plot( p(n,stvorSten),type="l",xlab="i",ylab="p(i)", lwd=2, main="Konvergencia p(n) pre štvorsten",yaxt="n")
+    plot( p(n,stvorSten),type="l",xlab="i",ylab="p(i)", lwd=2, main="Konvergencia p(n) pre ï¿½tvorsten",yaxt="n")
     ticks<- c(0.45,0.35)
     axis(2,at=ticks,labels=ticks)
     abline(h=p(1000,stvorSten), col="red")
     axis(2,at=p(1000,stvorSten),labels=p(1000,stvorSten),col="red")
   #Ostatne telesa v bp
-    plot( p(n,osemsSten),type="l",xlab="i",ylab="p(i)", ylim=c(0,.35), lwd=2, main="Konvergencia p(n) pre ostatné telesá",yaxt="n")
+    plot( p(n,osemsSten),type="l",xlab="i",ylab="p(i)", ylim=c(0,.35), lwd=2, main="Konvergencia p(n) pre ostatnï¿½ telesï¿½",yaxt="n")
     ticks<- c(0.45,0.35)
     axis(2,at=ticks,labels=ticks)
     abline(h=p(1000,osemsSten), col="red")
