@@ -14,7 +14,7 @@ let stats = {
 
 const startGame = (nPlayers,nPairs,nSim) => {
     let livingPlayers;
-    let unknownPairs;
+    let unknownPairs;    
     for(let i =0 ; i < nSim ; i++){
         livingPlayers= nPlayers;
         unknownPairs = nPairs;
@@ -26,7 +26,7 @@ const startGame = (nPlayers,nPairs,nSim) => {
             else {
                 unknownPairs --;
                 livingPlayers --;
-                console.log(nPairs-unknownPairs)
+                //console.log(nPairs-unknownPairs)
             }
         }        
         stats.nEscapee.push(livingPlayers);
@@ -36,7 +36,7 @@ const startGame = (nPlayers,nPairs,nSim) => {
 
 let initPlayers = 16;
 let initGlassPairs = 18;
-let nSim = 1;
+let nSim = 1000;
 
 startGame(initPlayers,initGlassPairs,nSim);
 arrayToTxtFile([stats.nEscapee], './output.txt', err => {

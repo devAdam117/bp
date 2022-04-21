@@ -72,7 +72,7 @@ const showAbortion =(array)=> {
     let obj = {};    
     for(let i = 0; i<uniqueArr.length;i++){
         obj[uniqueArr[i]]=0;
-    }
+    }   
     uniqueArr.forEach(el=>{
         array.forEach(e=>{
             if(e===el){
