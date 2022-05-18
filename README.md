@@ -5,16 +5,22 @@ Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom pri
 ##  mangKung
 
  - ### fixneOutputy
-folder v ktorom sa nachádzaju výsledky prebehnutých simulácií. Vysvetlenie o aké simulácie sa jedná najdeme v samotnom priečinku, v súbore mangKungReadme.txt
+folder v ktorom sa nachádzaju výsledky prebehnutých simulácií. Vysvetlenie o aké simulácie sa jedná a kde v práci sa s nimi narábalo najdeme v priečinku, v súbore mangKungReadme.txt
  - ### basicSimulation.js
-Základny skript, ktorý spusti 1000 krát hru Mang Kung. Po spustení skriptu sa zobrazia rôzne štatistické výsledky simulácií v konzole.
+Základny skript, ktorý spusti 1000 krát hru Mang Kung bez nejakých modifikácií. Po spustení skriptu sa zobrazia rôzne štatistické výsledky simulácií v konzole.
  - ### b.js
-
- - ### c.js
+ Skript, pomocou ktorého zisťujeme či fixne volený hráč na začiatku hry má väčšiu pravdepodobnosť výhry
+ - ### c.js 
+ Skript, pomocou ktorého zisťujeme či fixne volený hráč na začiatku hry má väčšiu očakávanú výhru ako ostatní hráči
+ 
 - ### g.js
-- ### kocky.js
+- Skript, pomocou ktorého zisťujeme aké by bolo potrebné množstvo žetónov na dokončenie jednej hry s pravdepodobnosťou 100-alfa %
+- ### kocky.js 
+-Skript, ktorý vytvára voliteľný počet kociek podľa logiky hry
 - ### mangKung.js
+- Skript, ktorý v sebe nesie zakladnú logiku hry
 - ### output.txt
+- Textový súbor, do ktorého sa ukladajú po spusteni skriptu výsledky simulacií
 
 ## dvanastka
 ### fixneOutputy
