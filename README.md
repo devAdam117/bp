@@ -5,8 +5,8 @@ Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom pri
 ##  @@ text in purple (and bold)@@ 
 ```
 ```diff
-- text in red
-+ text in green
+## - text in red
+## + text in green
 ! text in orange
 # text in gray
 
