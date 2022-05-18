@@ -1,5 +1,5 @@
 # BP 
-Krátke vysvetlenie štruktúri daného repozitára. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia + kde su uložené výsledky simulácií
+Krátke vysvetlenie štruktúry daného repozitára. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia + kde su uložené výsledky simulácií
 ## mangKung
 ### fixneOutputy
 folder v ktorom sa nachádzaju výsledky prebehnutých simulácií. Vysvetlenie o aké simulácie sa jedná najdeme v samotnom priečinku, v súbore mangKungReadme.txt
