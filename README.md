@@ -14,13 +14,13 @@ Základny skript, ktorý spusti 1000 krát hru Mang Kung bez nejakých modifiká
  Skript, pomocou ktorého zisťujeme či fixne volený hráč na začiatku hry má väčšiu očakávanú výhru ako ostatní hráči
  
 - ### g.js
-- Skript, pomocou ktorého zisťujeme aké by bolo potrebné množstvo žetónov na dokončenie jednej hry s pravdepodobnosťou 100-alfa %
+ Skript, pomocou ktorého zisťujeme aké by bolo potrebné množstvo žetónov na dokončenie jednej hry s pravdepodobnosťou 100-alfa %
 - ### kocky.js 
--Skript, ktorý vytvára voliteľný počet kociek podľa logiky hry
+Skript, ktorý vytvára voliteľný počet kociek podľa logiky hry
 - ### mangKung.js
-- Skript, ktorý v sebe nesie zakladnú logiku hry
+ Skript, ktorý v sebe nesie zakladnú logiku hry
 - ### output.txt
-- Textový súbor, do ktorého sa ukladajú po spusteni skriptu výsledky simulacií
+ Textový súbor, do ktorého sa ukladajú po spusteni skriptu výsledky simulacií
 
 ## dvanastka
 ### fixneOutputy
