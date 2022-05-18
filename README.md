@@ -1,7 +1,9 @@
 # BP 
 Krátke vysvetlenie štruktúry daného repozitára, s ktorým sme si pomáhali v bakalárskej práci. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia. 
 Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom priečinku **codes**
-## ```diff @@ text in purple (and bold)@@ ```
+```diff
+##  @@ text in purple (and bold)@@ 
+```
 ```diff
 - text in red
 + text in green
