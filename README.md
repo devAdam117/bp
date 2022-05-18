@@ -1,7 +1,7 @@
 # BP 
 Krátke vysvetlenie štruktúry daného repozitára, s ktorým sme si pomáhali v bakalárskej práci. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia. 
 Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom priečinku **codes**
-## + mangKung
+## ```diff + mangKung ```
 ### fixneOutputy
 folder v ktorom sa nachádzaju výsledky prebehnutých simulácií. Vysvetlenie o aké simulácie sa jedná najdeme v samotnom priečinku, v súbore mangKungReadme.txt
 ### basicSimulation.js
