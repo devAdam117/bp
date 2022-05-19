@@ -2,7 +2,7 @@
 Krátke vysvetlenie štruktúry daného repozitára, s ktorým sme si pomáhali v bakalárskej práci. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia. 
 Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom priečinku **codes**, každý skript a jeho využitie a aj výsledky simulacií.
 
-##  [mangKung]((https://github.com/devAdam117/bp/tree/main/codes/mangKung)
+##  [mangKung](https://github.com/devAdam117/bp/tree/main/codes/mangKung)
 
  - ### [fixneOutputy](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy)
 folder v ktorom sa nachádzaju výsledky prebehnutých simulácií. Vysvetlenie o aké simulácie sa jedná a kde v práci sa s nimi narábalo najdeme v samotnom priečinku a následne v súbore mangKu]([
