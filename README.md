@@ -4,7 +4,7 @@ Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom pri
 
 ##  mangKung
 
- - ### fixneOutputy
+ - ### [fixneOutputy](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy)
 folder v ktorom sa nachádzaju výsledky prebehnutých simulácií. Vysvetlenie o aké simulácie sa jedná a kde v práci sa s nimi narábalo najdeme v samotnom priečinku a následne v súbore mangKungReadme.txt
  - ### basicSimulation.js
 Základny skript, ktorý spusti 1000 krát hru Mang Kung bez nejakých modifikácií. Po spustení skriptu sa zobrazia rôzne štatistické výsledky simulácií v konzole.
