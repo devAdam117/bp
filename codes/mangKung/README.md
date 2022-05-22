@@ -40,3 +40,5 @@
       - vyhryH3.txt
 
         Záznamy stavu peňaženky tretieho hráča po každej odohratej n-dĺžkovej hre (na začiatku má 5000)
+  ## f)
+  ## g)
