@@ -41,4 +41,10 @@
 
         Záznamy stavu peňaženky tretieho hráča po každej odohratej n-dĺžkovej hre (na začiatku má 5000)
   ## f)
-  ## g)
+    -zetonyNaStole.txt
+     
+    Záznamy počtu žetónov na stole počas priebehu všetkých hier
+  ## g) 
+    - maxPrehry.txt
+
+      Záznamy maximálnych prehier za každú jednu odohratú hru
