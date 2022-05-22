@@ -1,6 +1,6 @@
 # BP 
 Krátke vysvetlenie štruktúry daného repozitára, s ktorým sme si pomáhali v bakalárskej práci. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia. 
-Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom priečinku **codes**, každý skript a jeho využitie a aj výsledky simulacií.
+Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom priečinku **codes**, každý skript a jeho využitie a aj výsledky simulacií. Ak by ste chceli spústiť hociaký skript, je potrebné mať nainštalované [nodejs](https://nodejs.org/en/), až potom je možné [spustiť](https://www.w3schools.com/nodejs/nodejs_get_started.asp) ľubovolný skript.
 
 ##  [mangKung](https://github.com/devAdam117/bp/tree/main/codes/mangKung)
 
