@@ -1,7 +1,7 @@
 # Fixne outputy
 ## c)
   - boxplot 
-    - [vyhry_1_dlzkova](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/c)/boxplot/vyhry_1-dlzkova)
+    - [vyhry_1_dlzkova](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/c\)/boxplot/vyhry_1-dlzkova)
       - vyhryH1.txt 
          
         Záznamy stavu peňaženky prvého hráča po každej odohratej 1-dĺžkovej hre (na začiatku má 500)
@@ -11,7 +11,7 @@
       - vyhryH3.txt
 
         Záznamy stavu peňaženky tretieho hráča po každej odohratej 1-dĺžkovej hre (na začiatku má 500)
-    - [vyhry_50_dlzkova](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/c)/boxplot/vyhry_50-dlzkova)
+    - [vyhry_50_dlzkova](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/c\)/boxplot/vyhry_50-dlzkova)
       - vyhryH1.txt
       
         Záznamy stavu peňaženky prvého hráča po každej odohratej 50-dĺžkovej hre (na začiatku má 500)
