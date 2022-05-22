@@ -1,4 +1,4 @@
-# Fixne outputy
+# fixneOutputy
 ## c)
   - boxplot (dáta, ktoré sa použivali v bp na zostrojenie boxplov)
     - [vyhry_1_dlzkova](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/c\)/boxplot/vyhry_1-dlzkova)
