@@ -21,5 +21,9 @@
       - vyhryH3.txt
 
         Záznamy stavu peňaženky tretieho hráča po každej odohratej 50-dĺžkovej hre (na začiatku má 500)
-  - konvergencia_priemernej_vyhry
-  - testovanie_ocakavanej_vyhry
+  - [konvergencia_priemernej_vyhry](https://github.com/devAdam117/bp/blob/main/codes/mangKung/fixneOutputy/c\)/konvergencia_priemernej_vyhry/vyhryH1.txt) (dáta, ktoré sa používali v bp na aproximáciu konvergencie priemernej výhry H1 pri jedno-dĺžkových hrách)
+    - vyhryH1.txt 
+      
+      Záznamy stavu peňaženky prvého hráča po každej odohratej 1-dĺžkovej hre
+
+  - testovanie_ocakavanej_vyhry ()
