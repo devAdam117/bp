@@ -6,7 +6,6 @@
          
         Záznamy stavu peňaženky prvého hráča po každej odohratej 1-dĺžkovej hre (na začiatku má 500)
       - vyhryH2.txt
-
         Záznamy stavu peňaženky prvého hráča po každej odohratej 1-dĺžkovej hre (na začiatku má 500)
       - vyhryH3.txt
 
