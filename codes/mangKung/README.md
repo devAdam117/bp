@@ -26,4 +26,4 @@
       
       Záznamy stavu peňaženky prvého hráča po každej odohratej 1-dĺžkovej hre
 
-  - testovanie_ocakavanej_vyhry ()
+  - testovanie_ocakavanej_vyhry (dáta, ktoré sa v bp používali pri vyhodnocovaní signifikantnosti výhry prvého hráča pri malo-dĺžkových hrách. Pri malo-dĺžkových hrách nám vyšlo, že výhry prvého hráča sú signifikantné a naopak pri viacej-dĺžkových hrách vyšiel opak)
