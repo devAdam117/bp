@@ -1,6 +1,6 @@
 # BP 
 Krátke vysvetlenie štruktúry daného repozitára, s ktorým sme si pomáhali v bakalárskej práci. V krátkosti si objasníme, kde čo najdeme a na čo dané súbory slúžia. 
-Postupne budeme rozoberať každý priečinok, ktorý sa nachádza v hlavnom priečinku **codes**, každý skript a jeho využitie a aj výsledky simulacií.
+Postupne budeme rozoberať každý priečinok, v priečinku, v ktoróm sa práve nachádzame, každý skript a jeho využitie a aj výsledky simulacií.
 
 ##  [mangKung](https://github.com/devAdam117/bp/tree/main/codes/mangKung)
 
