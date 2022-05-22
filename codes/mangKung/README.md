@@ -40,11 +40,11 @@
       - vyhryH3.txt
 
         Záznamy stavu peňaženky tretieho hráča po každej odohratej n-dĺžkovej hre (na začiatku má 5000)
-  ## f)
+  ## [f)](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/f\))
    - zetonyNaStole.txt
      
    Záznamy počtu žetónov na stole počas priebehu všetkých hier
-  ## g) 
+  ## [g)](https://github.com/devAdam117/bp/tree/main/codes/mangKung/fixneOutputy/g\))
    - maxPrehry.txt
 
    Záznamy maximálnych prehier za každú jednu odohratú hru
